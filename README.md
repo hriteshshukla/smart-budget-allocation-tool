@@ -24,9 +24,11 @@ You can host this app using [Streamlit Cloud](https://streamlit.io/cloud).
    cd smart-budget-allocation-tool
 
 2. Install required packages:
+   ```bash
 pip install -r requirements.txt
 
-3. Launch the app:
+4. Launch the app:
+```bash
 streamlit run smart_budget_tool.py
 
 The app will open in your browser at http://localhost:8501
