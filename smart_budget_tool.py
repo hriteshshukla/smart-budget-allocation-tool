@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.express as px
+from streamlit_extras.metric_cards import style_metric_cards
 
 # ----------------------
 # Define allocation logic and thresholds
@@ -32,48 +34,63 @@ def get_allocation(income, profile):
 # Streamlit App
 # ----------------------
 st.set_page_config(page_title="Smart Budget Allocation Tool", layout="centered")
+st.markdown("""
+<style>
+    .main {
+        background-color: #f9f9f9;
+    }
+    .stApp {
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .stTitle { color: #004080; }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("📊 Smart Budget Allocation Tool")
 st.markdown("""
-Use this tool to get a personalised income allocation recommendation based on your profile and monthly income.
+Use this interactive tool to get a personalised income allocation recommendation based on your profile and monthly income.
 
-### How to Use:
-1. Enter your **monthly income** in pounds.
-2. Select the **user profile** that best describes your situation.
-3. Click **"Generate My Budget Plan"** to view your recommended allocations.
-4. A table and pie chart will show how to best divide your income.
+💡 **Plan smarter. Spend better. Save wiser.**
 """)
 
-# Inputs
-income = st.number_input("Enter your monthly income (£):", min_value=100, max_value=10000, value=1200)
-profile = st.selectbox("Select your profile:", ["Student", "Graduate", "Tier 2 Skilled Worker", "Other"])
-rent_input = st.number_input("Your current rent (£ per month):", min_value=0, max_value=5000, value=600)
-food_input = st.number_input("Your current food + takeaway expenses (£ per month):", min_value=0, max_value=2000, value=150)
+st.sidebar.header("🛠 User Input")
+income = st.sidebar.number_input("Enter your monthly income (£):", min_value=100, max_value=10000, value=1200)
+profile = st.sidebar.selectbox("Select your profile:", ["Student", "Graduate", "Tier 2 Skilled Worker", "Other"])
+rent_input = st.sidebar.number_input("Your current rent (£ per month):", min_value=0, max_value=5000, value=600)
+food_input = st.sidebar.number_input("Your current food + takeaway expenses (£ per month):", min_value=0, max_value=2000, value=150)
 
 # Calculate and Display Results
-if st.button("Generate My Budget Plan"):
+if st.sidebar.button("Generate My Budget Plan"):
     allocation, rent_max, food_max = get_allocation(income, profile)
     df_alloc = pd.DataFrame.from_dict(allocation, orient='index', columns=['Amount (£)'])
     df_alloc['% of Income'] = (df_alloc['Amount (£)'] / income * 100).round(1)
 
-    st.subheader("📋 Recommended Allocation:")
-    st.dataframe(df_alloc)
+    st.subheader("📋 Recommended Monthly Allocation")
+    st.dataframe(df_alloc.style.format({"Amount (£)": "£{:.2f}", "% of Income": "{:.1f}%"}))
 
-    # Pie chart
-    st.subheader("📌 Visual Breakdown:")
-    fig, ax = plt.subplots()
-    ax.pie(df_alloc['Amount (£)'], labels=df_alloc.index, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')
-    st.pyplot(fig)
+    # Plotly Pie Chart
+    fig = px.pie(df_alloc.reset_index(), names='index', values='Amount (£)',
+                 color_discrete_sequence=px.colors.sequential.RdBu,
+                 title="Budget Breakdown by Category")
+    st.plotly_chart(fig, use_container_width=True)
 
+    # Rent & Food Spending Check
     st.subheader("🔎 Rent & Food Expense Check")
     rent_flag = "✅ Within safe limit" if rent_input <= rent_max else "⚠️ Above recommended max"
     food_flag = "✅ Within safe limit" if food_input <= food_max else "⚠️ Above recommended max"
 
-    st.markdown(f"**🏠 Your Rent:** £{rent_input} ({rent_flag}) — Recommended Max: £{rent_max}")
-    st.markdown(f"**🍔 Your Food + Takeaways:** £{food_input} ({food_flag}) — Recommended Max: £{food_max}")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("🏠 Your Rent", f"£{rent_input}", help=f"Max recommended: £{rent_max}")
+        st.markdown(rent_flag)
+    with col2:
+        st.metric("🍔 Food & Takeaways", f"£{food_input}", help=f"Max recommended: £{food_max}")
+        st.markdown(food_flag)
+
+    style_metric_cards(background_color="#FFFFFF", border_left_color="#3399FF", border_color="#E0E0E0")
 
     st.markdown("""
     ✅ This plan is based on data from the ONS, UK student surveys, and job market insights.
 
-    💡 Adjust the income or switch profiles to explore different financial scenarios.
+    📈 Adjust your values to simulate different financial scenarios.
     """)
