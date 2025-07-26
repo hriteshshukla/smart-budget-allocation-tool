@@ -71,9 +71,9 @@ st.markdown("""
 <h1>📊 Smart Budget Allocation Tool</h1>
 <div class="subtitle">Your intelligent personal finance guide built with data, logic, and simplicity</div>
 <div class="guide-box">
-🚀 **How to Use This App:**<br>
-👉 Use the **left sidebar** to enter your income, user profile, and monthly rent/food costs.<br>
-📊 Then hit **"Generate My Budget Plan"** to see your personalised financial breakdown.<br>
+🚀 How to Use This App:<br>
+👉 Use the left sidebar to enter your income, user profile, and monthly rent/food costs.<br>
+📊 Then hit "Generate My Budget Plan" to see your personalised financial breakdown.<br>
 🎯 You'll get insights, suggestions, and warnings where you're overspending.<br>
 💡 Optimise your money decisions with confidence — powered by UK finance data.
 </div>
