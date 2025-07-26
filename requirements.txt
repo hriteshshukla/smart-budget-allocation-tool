@@ -1,5 +1,1 @@
-streamlit
-pandas
-matplotlib
-plotly
-streamlit-extras
+
