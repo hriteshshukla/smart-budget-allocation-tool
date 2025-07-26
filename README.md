@@ -31,3 +31,13 @@ You can host this app using [Streamlit Cloud](https://streamlit.io/cloud).
 ```bash
 streamlit run smart_budget_tool.py
 
+## 📈 Data Sources
+Office for National Statistics (ONS)
+Save the Student UK Survey 2024
+Family Spending Report UK 2023
+
+## 📩 Feedback
+Feel free to raise issues or contribute ideas to improve the logic or add features.
+
+## 🧠 Author
+Hritesh Shukla – MSc Business Analytics (University of Kent)
