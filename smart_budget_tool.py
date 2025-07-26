@@ -57,7 +57,8 @@ st.sidebar.header("🛠 User Input")
 income = st.sidebar.number_input("Enter your monthly income (£):", min_value=100, max_value=10000, value=1200)
 profile = st.sidebar.selectbox("Select your profile:", ["Student", "Graduate", "Tier 2 Skilled Worker", "Other"])
 rent_input = st.sidebar.number_input("Your current rent (£ per month):", min_value=0, max_value=5000, value=600)
-food_input = st.sidebar.number_input("Your current food + takeaway expenses (£ per month):", min_value=0, max_value=2000, value=150)
+groceries_input = st.sidebar.number_input("Groceries (£ per month):", min_value=0, max_value=2000, value=100)
+takeaway_input = st.sidebar.number_input("Takeaways/Restaurants (£ per month):", min_value=0, max_value=2000, value=50)
 
 # Calculate and Display Results
 if st.sidebar.button("Generate My Budget Plan"):
@@ -76,6 +77,7 @@ if st.sidebar.button("Generate My Budget Plan"):
 
     # Rent & Food Spending Check
     st.subheader("🔎 Rent & Food Expense Check")
+    food_input = groceries_input + takeaway_input
     rent_flag = "✅ Within safe limit" if rent_input <= rent_max else "⚠️ Above recommended max"
     food_flag = "✅ Within safe limit" if food_input <= food_max else "⚠️ Above recommended max"
 
@@ -84,7 +86,7 @@ if st.sidebar.button("Generate My Budget Plan"):
         st.metric("🏠 Your Rent", f"£{rent_input}", help=f"Max recommended: £{rent_max}")
         st.markdown(rent_flag)
     with col2:
-        st.metric("🍔 Food & Takeaways", f"£{food_input}", help=f"Max recommended: £{food_max}")
+        st.metric("🍔 Total Food (Groceries + Takeaways)", f"£{food_input}", help=f"Max recommended: £{food_max}")
         st.markdown(food_flag)
 
     style_metric_cards(background_color="#FFFFFF", border_left_color="#3399FF", border_color="#E0E0E0")
