@@ -78,16 +78,20 @@ if st.sidebar.button("Generate My Budget Plan"):
     # Rent & Food Spending Check
     st.subheader("🔎 Rent & Food Expense Check")
     food_input = groceries_input + takeaway_input
-    rent_flag = "✅ Within safe limit" if rent_input <= rent_max else "⚠️ Above recommended max"
-    food_flag = "✅ Within safe limit" if food_input <= food_max else "⚠️ Above recommended max"
+    rent_flag = "✅ Within safe limit" if rent_input <= rent_max else f"⚠️ Above recommended max by £{rent_input - rent_max:.2f}"
+    food_flag = "✅ Within safe limit" if food_input <= food_max else f"⚠️ Above recommended max by £{food_input - food_max:.2f}"
 
     col1, col2 = st.columns(2)
     with col1:
         st.metric("🏠 Your Rent", f"£{rent_input}", help=f"Max recommended: £{rent_max}")
         st.markdown(rent_flag)
+        if rent_input > rent_max:
+            st.info(f"💡 Try reducing your rent cost by at least £{rent_input - rent_max:.2f} to meet the recommended limit.")
     with col2:
         st.metric("🍔 Total Food (Groceries + Takeaways)", f"£{food_input}", help=f"Max recommended: £{food_max}")
         st.markdown(food_flag)
+        if food_input > food_max:
+            st.info(f"💡 Consider cutting down your food-related expenses by £{food_input - food_max:.2f} to align with healthy budgeting.")
 
     style_metric_cards(background_color="#FFFFFF", border_left_color="#3399FF", border_color="#E0E0E0")
 
