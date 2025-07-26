@@ -37,21 +37,46 @@ st.set_page_config(page_title="Smart Budget Allocation Tool", layout="centered")
 st.markdown("""
 <style>
     .main {
-        background-color: #f9f9f9;
+        background-color: #f5f8ff;
     }
     .stApp {
         font-family: 'Segoe UI', sans-serif;
+        color: #1a1a1a;
     }
-    .stTitle { color: #004080; }
+    h1 {
+        color: #004080;
+        font-size: 3em;
+        font-weight: 800;
+        text-align: center;
+    }
+    .subtitle {
+        font-size: 1.25em;
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .guide-box {
+        background-color: #e6f2ff;
+        border-left: 5px solid #1a75ff;
+        padding: 1.2rem;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        font-size: 1.05em;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-st.title("📊 Smart Budget Allocation Tool")
 st.markdown("""
-Use this interactive tool to get a personalised income allocation recommendation based on your profile and monthly income.
-
-💡 **Plan smarter. Spend better. Save wiser.**
-""")
+<h1>📊 Smart Budget Allocation Tool</h1>
+<div class="subtitle">Your intelligent personal finance guide built with data, logic, and simplicity</div>
+<div class="guide-box">
+🚀 **How to Use This App:**<br>
+👉 Use the **left sidebar** to enter your income, user profile, and monthly rent/food costs.<br>
+📊 Then hit **"Generate My Budget Plan"** to see your personalised financial breakdown.<br>
+🎯 You'll get insights, suggestions, and warnings where you're overspending.<br>
+💡 Optimise your money decisions with confidence — powered by UK finance data.
+</div>
+""", unsafe_allow_html=True)
 
 st.sidebar.header("🛠 User Input")
 income = st.sidebar.number_input("Enter your monthly income (£):", min_value=100, max_value=10000, value=1200)
