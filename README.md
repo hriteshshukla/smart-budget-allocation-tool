@@ -40,4 +40,4 @@ Family Spending Report UK 2023
 Feel free to raise issues or contribute ideas to improve the logic or add features.
 
 ## 🧠 Author
-Hritesh Shukla – MSc Business Analytics (University of Kent)
+Hritesh Shukla 
