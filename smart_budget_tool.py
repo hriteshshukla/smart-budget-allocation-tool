@@ -63,6 +63,11 @@ st.markdown("""
         margin-bottom: 30px;
         font-size: 1.05em;
     }
+    .custom-warning {
+        color: #4d4d4d !important;
+        font-weight: 500;
+        font-size: 1.05em;
+    }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
@@ -71,9 +76,9 @@ st.markdown("""
 <h1>📊 Smart Budget Allocation Tool</h1>
 <div class="subtitle">Your intelligent personal finance guide built with data, logic, and simplicity</div>
 <div class="guide-box">
-🚀 How to Use This App:<br>
-👉 Use the left sidebar to enter your income, user profile, and monthly rent/food costs.<br>
-📊 Then hit "Generate My Budget Plan" to see your personalised financial breakdown.<br>
+🚀 **How to Use This App:**<br>
+👉 Use the **left sidebar** to enter your income, user profile, and monthly rent/food costs.<br>
+📊 Then hit **"Generate My Budget Plan"** to see your personalised financial breakdown.<br>
 🎯 You'll get insights, suggestions, and warnings where you're overspending.<br>
 💡 Optimise your money decisions with confidence — powered by UK finance data.
 </div>
@@ -104,18 +109,18 @@ if st.sidebar.button("Generate My Budget Plan"):
     # Rent & Food Spending Check
     st.subheader("🔎 Rent & Food Expense Check")
     food_input = groceries_input + takeaway_input
-    rent_flag = "✅ Within safe limit" if rent_input <= rent_max else f"⚠️ Above recommended max by £{rent_input - rent_max:.2f}"
-    food_flag = "✅ Within safe limit" if food_input <= food_max else f"⚠️ Above recommended max by £{food_input - food_max:.2f}"
+    rent_flag = f"✅ Within safe limit" if rent_input <= rent_max else f"⚠️ Above recommended max by £{rent_input - rent_max:.2f}"
+    food_flag = f"✅ Within safe limit" if food_input <= food_max else f"⚠️ Above recommended max by £{food_input - food_max:.2f}"
 
     col1, col2 = st.columns(2)
     with col1:
         st.metric("🏠 Your Rent", f"£{rent_input}", help=f"Max recommended: £{rent_max}")
-        st.markdown(rent_flag)
+        st.markdown(f"<div class='custom-warning'>{rent_flag}</div>", unsafe_allow_html=True)
         if rent_input > rent_max:
             st.info(f"💡 Try reducing your rent cost by at least £{rent_input - rent_max:.2f} to meet the recommended limit.")
     with col2:
         st.metric("🍔 Total Food (Groceries + Takeaways)", f"£{food_input}", help=f"Max recommended: £{food_max}")
-        st.markdown(food_flag)
+        st.markdown(f"<div class='custom-warning'>{food_flag}</div>", unsafe_allow_html=True)
         if food_input > food_max:
             st.info(f"💡 Consider cutting down your food-related expenses by £{food_input - food_max:.2f} to align with healthy budgeting.")
 
