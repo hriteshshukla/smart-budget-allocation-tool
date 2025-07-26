@@ -28,8 +28,8 @@ You can host this app using [Streamlit Cloud](https://streamlit.io/cloud).
    pip install -r requirements.txt
 
 4. Launch the app:
-```bash
-streamlit run smart_budget_tool.py
+   ```bash
+   streamlit run smart_budget_tool.py
 
 ## 📈 Data Sources
 Office for National Statistics (ONS)
