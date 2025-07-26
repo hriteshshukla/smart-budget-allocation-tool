@@ -36,21 +36,21 @@ def get_allocation(income, profile):
 st.set_page_config(page_title="Smart Budget Allocation Tool", layout="centered")
 st.markdown("""
 <style>
-    .main {
-        background-color: #f5f8ff;
-    }
     .stApp {
+        background: linear-gradient(135deg, #eef2f3 0%, #cfd9df 100%);
         font-family: 'Segoe UI', sans-serif;
         color: #1a1a1a;
     }
     h1 {
-        color: #004080;
-        font-size: 3em;
+        font-family: 'Poppins', sans-serif;
+        color: #003366;
+        font-size: 3.2em;
         font-weight: 800;
         text-align: center;
+        margin-bottom: 0.3em;
     }
     .subtitle {
-        font-size: 1.25em;
+        font-size: 1.3em;
         color: #333;
         text-align: center;
         margin-bottom: 30px;
@@ -64,6 +64,7 @@ st.markdown("""
         font-size: 1.05em;
     }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
 st.markdown("""
